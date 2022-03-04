@@ -11,8 +11,9 @@ import {
     TextField, Theme
 } from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
+import {Person} from "../models/Person";
 
-export const NewItemForm = () => {
+export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
     const [name,setName] = useState('');
     const [surname, setSurname] = useState('');
     const [disease,setDisease] = useState('');
@@ -25,11 +26,11 @@ export const NewItemForm = () => {
         e.preventDefault()
         const tmpErrors: String[] = [];
 
-        if(name.trim().length < 0){
+        if(name.trim().length < 1){
             tmpErrors.push('Pole "Imię" nie może być puste');
         }
 
-        if(surname.trim().length < 0){
+        if(surname.trim().length < 1){
             tmpErrors.push('Pole "Nazwisko" nie może być puste');
 
         }
@@ -41,10 +42,15 @@ export const NewItemForm = () => {
         }
 
         setErrors(tmpErrors);
+        if (tmpErrors.length === 0) {
+            const newPatient = new Person(name, surname, disease,Number(time))
+            addPatientFn(newPatient);
+            setName('');
+            setSurname('');
+            setDisease('');
+            setTime('');
+        }
     }
-
-
-
 
     const styles = makeStyles((theme:Theme) =>
        createStyles({
