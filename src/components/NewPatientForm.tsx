@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Button,
     Container, createStyles,
@@ -37,15 +37,9 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
 
         }
 
-        if(isNaN(Number(time))){
-            tmpErrors.push('Podaj godzinę w formacie gg.mm');
-        }else if (Number(time) <= 0){
-            tmpErrors.push('Należy wpisać liczbę dodatnią');
-        }
-
         setErrors(tmpErrors);
         if (tmpErrors.length === 0) {
-            const newPatient = new Person(name, surname, disease,Number(time))
+            const newPatient = new Person(name, surname, disease,time)
             addPatientFn(newPatient);
             setName('');
             setSurname('');
@@ -53,6 +47,12 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
             setTime('');
         }
     }
+
+    useEffect(()=> {
+        if (time < 0) {
+            setErrors(prevState => [...prevState, 'godzina nie może być ujemna'])
+        }
+    }, [time])
 
     const styles = makeStyles((theme:Theme) =>
        createStyles({
@@ -93,8 +93,9 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
                     </FormGroup>
                     <FormGroup>
                         <InputLabel>Godzina wizyty</InputLabel>
-                        <TextField {...timeFormParams}/>
+                        <TextField type='time' {...timeFormParams}/>
                     </FormGroup>
+                    {errorsJsx}
                     <Button type={"submit"} variant='contained' color='primary'>Umów wizytę</Button>
                 </form>
             </Container>

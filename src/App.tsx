@@ -1,6 +1,5 @@
 import React from 'react';
 import './sass/main.scss'
-import './App.scss';
 import {Header} from "./components/Header";
 import {NewPatientForm} from "./components/NewPatientForm";
 import {Person} from "./models/Person";
