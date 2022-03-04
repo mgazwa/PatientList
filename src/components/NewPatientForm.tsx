@@ -12,12 +12,14 @@ import {
 } from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
 import {Person} from "../models/Person";
+import {useInput} from "../hooks/useInput";
 
 export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
-    const [name,setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [disease,setDisease] = useState('');
-    const [time, setTime] = useState('');
+
+    const [name,setName, nameFormParams] = useInput('');
+    const [surname, setSurname, surnameFormParams] = useInput('');
+    const [disease,setDisease, diseaseFormParams] = useInput('');
+    const [time, setTime, timeFormParams] = useInput('');
     const [errors,setErrors] = useState<String[]>([]);
 
 
@@ -75,13 +77,13 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <FormGroup>
                         <InputLabel>Imię</InputLabel>
-                        <TextField value={name} onChange={ (e:any) => setName(e.target.value)} />
+                        <TextField {...nameFormParams} />
                         <InputLabel>Nazwisko</InputLabel>
-                        <TextField value={surname} onChange={ (e:any) => setSurname(e.target.value)}/>
+                        <TextField {...surnameFormParams}/>
                     </FormGroup>
                     <FormGroup>
                         <InputLabel>Rozpoznanie</InputLabel>
-                        <Select value={disease} onChange={ (e:any) => setDisease(e.target.value)}>
+                        <Select {...diseaseFormParams}>
                             <MenuItem value={'Koksartroza'}>Koksartroza</MenuItem>
                             <MenuItem value={'Gonartroza'}>Gonartroza</MenuItem>
                             <MenuItem value={'Zwyrodnienie stawów kręgosłupa'}>Zwyrodnienie stawów kręgosłupa</MenuItem>
@@ -91,7 +93,7 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
                     </FormGroup>
                     <FormGroup>
                         <InputLabel>Godzina wizyty</InputLabel>
-                        <TextField value={time} onChange={ (e:any) => setTime(e.target.value)}/>
+                        <TextField {...timeFormParams}/>
                     </FormGroup>
                     <Button type={"submit"} variant='contained' color='primary'>Umów wizytę</Button>
                 </form>
