@@ -7,7 +7,7 @@ export const Header = () => {
         <AppBar position='static'>
             <Toolbar>
                 <Container maxWidth={'md'}>
-                    <Typography variant={'h6'}>
+                    <Typography variant={'h2'}>
                         Gabinet Lekarski
                     </Typography>
                 </Container>

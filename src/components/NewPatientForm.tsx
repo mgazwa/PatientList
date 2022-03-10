@@ -31,10 +31,11 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
         if(name.trim().length < 1){
             tmpErrors.push('Pole "Imię" nie może być puste');
         }
-
         if(surname.trim().length < 1){
             tmpErrors.push('Pole "Nazwisko" nie może być puste');
-
+        }
+        if(time === false){
+            tmpErrors.push('Musisz podać godzinę');
         }
 
         setErrors(tmpErrors);
@@ -46,6 +47,16 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
             setDisease('');
             setTime('');
         }
+
+        const pat ={ name, surname, disease, time };
+
+        fetch('http://localhost:3001/patient',{
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(pat)
+        }).then(() => {
+            console.log('new patient added')
+        })
     }
 
     useEffect(()=> {
@@ -57,10 +68,12 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
     const styles = makeStyles((theme:Theme) =>
        createStyles({
            form: {
-               display: 'flex',
-               justifyContent: 'space-between',
-               alignItems: 'center',
-               flexWrap: 'wrap'
+               height: "50vh",
+               display: "flex",
+               flexDirection: "column",
+               alignItems: "stretch",
+               justifyContent: "space-evenly",
+               flexWrap: "nowrap"
            }
        })
     );
@@ -71,15 +84,42 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
     if(errors.length > 0){
         errorsJsx = errors.map((err:String, index:number) => <Alert key={index} severity={'error'}>{err}</Alert> )
     }
+
+    // const obj = {
+    //     name,
+    //     surname,
+    //     disease,
+    //     time,
+    // }
+
+// useEffect(() =>{
+//     fetch("http://localhost:3001", {
+//     method: "POST",
+//     body: JSON.stringify(obj),
+//     headers: {
+//         "Content-Type": "application/json"
+//     }
+// })
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch(error => {
+//         console.log(error);
+//     });
+// },[])
+
+
+
     return (
         <Paper>
             <Container maxWidth={'md'}>
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <FormGroup>
-                        <InputLabel>Imię</InputLabel>
-                        <TextField {...nameFormParams} />
-                        <InputLabel>Nazwisko</InputLabel>
-                        <TextField {...surnameFormParams}/>
+                        <InputLabel/>
+                        <TextField {...nameFormParams} id="outlined-basic" label="Imię" variant="outlined" />
+                        <InputLabel/>
+                        <TextField {...surnameFormParams} id="outlined-basic" label="Nazwisko" variant="outlined"/>
                     </FormGroup>
                     <FormGroup>
                         <InputLabel>Rozpoznanie</InputLabel>
@@ -96,7 +136,7 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
                         <TextField type='time' {...timeFormParams}/>
                     </FormGroup>
                     {errorsJsx}
-                    <Button type={"submit"} variant='contained' color='primary'>Umów wizytę</Button>
+                    <Button type={"submit"} variant='contained' color='primary' size='large' >Umów wizytę</Button>
                 </form>
             </Container>
 

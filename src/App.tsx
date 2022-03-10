@@ -10,8 +10,6 @@ function App() {
     const [patients, setPatients] = useLocalStorage('patientList', [])
 
 
-
-
     const addPatient = (patient: Person) => {
         setPatients([...patients, patient])
     }
