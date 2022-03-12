@@ -2,9 +2,12 @@ import React from "react";
 import {Checkbox, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
 import {Person} from "../models/Person";
 
-export const Patient = ({patient} : {patient: Person}) => {
+export const Patient = ({patient, toggleAgreedFn} : {patient: Person, toggleAgreedFn:Function}) => {
+    const handleAgreed = () => {
+        toggleAgreedFn(patient.id);
+    }
     return (
-        <ListItem dense button>
+        <ListItem dense button onClick={handleAgreed}>
             <ListItemIcon>
                 <Checkbox
                     edge={'start'}
