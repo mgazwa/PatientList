@@ -55,6 +55,7 @@ export const NewPatientForm = ({addPatientFn}: {addPatientFn: Function}) => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(pat)
         }).then(() => {
+            //todo redirect to list
             console.log('new patient added')
         })
     }

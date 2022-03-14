@@ -6,41 +6,7 @@
       "surname": "Kowalski",
       "disease": "Koksatroza",
       "time": "12:00"
-    },
-    {
-      "name": "Jan",
-      "surname": "Kowalski",
-      "disease": "Koksatroza",
-      "time": "12:00",
-      "id": 2
-    },
-    {
-      "name": "Jan",
-      "surname": "Barylski",
-      "disease": "Gonartroza",
-      "time": "15:00",
-      "id": 3
-    },
-    {
-      "name": "Krzysztof ",
-      "surname": "Gązwa",
-      "disease": "Złamanie",
-      "time": "16:00",
-      "id": 4
-    },
-    {
-      "name": "Jan",
-      "surname": "Barylski",
-      "disease": "Gonartroza",
-      "time": "11:00",
-      "id": 5
-    },
-    {
-      "name": "Maria",
-      "surname": "Barylska",
-      "disease": "Zwyrodnienie stawów kręgosłupa",
-      "time": "15:00",
-      "id": 6
     }
+
   ]
 }
